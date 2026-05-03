@@ -85,26 +85,37 @@
         <div id="signintext">
           <p class="signinheader">CREATE A NEW ACCOUNT</p>
         </div>
-        <form id="formContainer">
-          <input type="text" id="username" placeholder="Username" required />
-          <input
-            type="mobileno"
-            id="mobileno"
-            placeholder="Mobile Number"
+            <form id="formContainer" action="/signin" method="POST">
+              <input type="text" name="name" placeholder="Full Name" required />
+        <input type="text" name="username" placeholder="Username" required />
+
+        <input
+        type="text"
+        name="mobileno"
+        placeholder="Mobile Number"
+        required
+        />
+
+        <input type="text" name="email" placeholder="Email id" required />
+
+        <input
+        type="password"
+        name="password"
+        placeholder="Password"
+        required
+        />
+              <input
+           type="date"
+            name="birthdate"
+            placeholder="Birth Date"
             required
           />
-          <input type="text" id="email" placeholder="Email id" required />
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            required
-          />
+
+        <button type="submit" class="signinbtn">SIGN UP</button>
         </form>
         <div id="alert"></div>
         <br />
-        <button class="signinbtn" onclick="storeDetails()">SIGN UP</button
-        ><br />
+       <br />
         <p style="text-align: center">
           Already have an account <span onclick="loginpage()">click Here</span>
         </p>
@@ -112,4 +123,3 @@
     </div>
   </body>
 </html>
-<script src="{{ url_for('static', filename='js/signin.js') }}"></script>
