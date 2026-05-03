@@ -1,48 +1,59 @@
+# 🛍️ Myntra Chat Support (Flask Backend Project)
 
-# Myntra (Clone)
+## 📌 Overview
 
-Project-1: make a clone of https://www.myntra.com/ site
+This project is an extension of a **Myntra frontend clone**. The original frontend UI was taken from an open-source Myntra clone repository and slightly modified to integrate with a backend system.
 
-In this project we have tried to make a look alike clone of Myntra Website. With our efforts and the technology stack, that we have learned till now in Unit-2 in Masai School, we were able to clone the front end with similar looks and features.
+The main goal of this project is to **build the backend architecture of an e-commerce application** and implement a **chat support system** within the platform.
 
-## Run Locally
+The **frontend provides the interface**, while the **backend (Flask + PostgreSQL)** handles user authentication, database operations, and future chat functionality.
 
-Clone the project
+---
 
-```bash
-  git clone https://github.com/imbickydutta/myntra_clone
-```
+## 🎨 About the Frontend
 
-## Technologies we used
+The frontend design used in this project is based on an existing Myntra clone project.
 
-In this project we have used the following technologies:
+🔗 Original repository:
+https://github.com/imbickydutta/myntra_clone
 
-- HTML
-- CSS
-- JavaScript
+The frontend has been **modified and integrated with Flask routes** to communicate with backend APIs.
 
-Along with that, in order to store user data and products data we also used LocalStorage (aka browser storage).
+---
 
-## Libraries Used
+## 🎯 Project Goal
 
-All the image and icon links have been taken from the main website ( https://www.myntra.com/ )
+The purpose of this project is to simulate how an **e-commerce platform works internally** and to implement a **chat system inside the platform**, allowing users to communicate and share products.
 
-## Team Members and Contributors :
+This project focuses mainly on **backend architecture and system design concepts**.
 
-## 🔗 Links
+---
 
-### Bicky Dutta
-- Github : https://github.com/imbickydutta
+## 🛠️ Tech Stack
 
-### Sagar Jakkani
-- Github : https://github.com/11431853
+### ⚙️ Backend
 
-### Subham Dobhal
-- Github : https://github.com/shubhamdobhal05
+* Python
+* Flask
+* Flask-SQLAlchemy
 
+### 🗄️ Database
 
+* PostgreSQL
 
+### 🎨 Frontend
 
+* HTML
+* CSS
+* JavaScript
 
+---
 
-  
+## 👩‍💻 Author
+
+**Sanskriti Verma**
+B.Tech IT Student
+Learning Backend Development with **Python and Flask**
+
+🔗 GitHub
+https://github.com/sanskritiii18
