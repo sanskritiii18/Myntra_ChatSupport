@@ -1,22 +1,31 @@
+from crypt import methods
+from http.client import responses
 
-from flask import Blueprint, render_template,request
-from auth.auth_service import login_user, sign_user
+from flask import request
+from flask import Blueprint, render_template,request,redirect,url_for
+from auth.auth_service import login_user, sign_user,  logout_user
+from routes.frontend_routes import get_current_user
 
 auth_bp = Blueprint("auth",__name__)
 
-
-@auth_bp.route("/login",methods=["GET","POST"])
+@auth_bp.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method =="POST":
+    user = get_current_user()
+
+    if user:
+        return redirect(url_for("frontend.profile"))
+
+    if request.method == "POST":
+
         phone_number = request.form.get("mobileno")
         password = request.form.get("password")
 
-        response= login_user(phone_number,password)
+        response = login_user(phone_number, password)
+
 
         return response
 
-    return  render_template("login.html")
-
+    return render_template("login.html")
 
 @auth_bp.route("/signin", methods=["GET", "POST"])
 def signin():
@@ -33,3 +42,7 @@ def signin():
 
     return render_template("signin.html")
 
+@auth_bp.route("/logout",methods=["GET"])
+def logout():
+    response = logout_user()
+    return response

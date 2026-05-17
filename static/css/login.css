@@ -209,3 +209,25 @@ p span {
   color: #ff3f6c;
   cursor: pointer;
 }
+.message-box{
+    min-height: 20px;
+    margin-top: 5px;
+}
+
+.error-msg{
+    color: red;
+    font-size: 14px;
+    margin: 0;
+}
+
+.success-msg{
+    color: green;
+    font-size: 14px;
+    margin: 0;
+}
+
+.strength-msg{
+    color: blue;
+    font-size: 14px;
+    margin: 0;
+}

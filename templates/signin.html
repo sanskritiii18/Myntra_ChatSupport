@@ -103,7 +103,21 @@
         name="password"
         placeholder="Password"
         required
-        />
+        /><div class="message-box">
+
+    {% if error %}
+    <p class="error-msg">{{ error }}</p>
+    {% endif %}
+
+    {% if success %}
+    <p class="success-msg">{{ success }}</p>
+    {% endif %}
+
+    {% if password_strength %}
+    <p class="strength-msg">{{ password_strength }}</p>
+    {% endif %}
+
+</div>
               <input
            type="date"
             name="birthdate"
@@ -117,7 +131,7 @@
         <br />
        <br />
         <p style="text-align: center">
-          Already have an account <span onclick="loginpage()">click Here</span>
+          Already have an account? <a href="/login"> click here </a>
         </p>
       </div>
     </div>
