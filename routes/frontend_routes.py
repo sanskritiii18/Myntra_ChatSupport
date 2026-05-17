@@ -1,6 +1,5 @@
 import os
 from crypt import methods
-
 from flask import Blueprint, render_template
 
 
@@ -8,7 +7,7 @@ from flask import Blueprint, render_template
 frontend_bp = Blueprint("frontend",__name__)
 
 # homepage
-@frontend_bp.route("/home",methods=["GET"])
+@frontend_bp.route("/",methods=["GET"])
 def home():
     return render_template("home.html")
 

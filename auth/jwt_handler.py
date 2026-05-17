@@ -1,0 +1,13 @@
+import jwt
+from datetime import datetime , timedelta
+from database.config import Config
+
+def create_token(user_id):
+    payload = {
+        "user_id": user_id,
+        "exp": datetime.utcnow() + timedelta(hours=2)
+    }
+
+    token = jwt.encode(payload, Config.JWT_SECRET, algorithm="HS256")
+
+    return token

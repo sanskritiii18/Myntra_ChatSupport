@@ -1,8 +1,6 @@
-from crypt import methods
 
 from flask import Blueprint, render_template,request
-from models.user import Users
-from database import db
+from auth.auth_service import login_user, sign_user
 
 auth_bp = Blueprint("auth",__name__)
 
@@ -13,20 +11,11 @@ def login():
         phone_number = request.form.get("mobileno")
         password = request.form.get("password")
 
-        user = Users.query.filter_by(phone_number=phone_number).first()
+        response= login_user(phone_number,password)
 
-        if not user:
-            return "User doesnt exist"
+        return response
 
-
-        if password == user.password:
-            return render_template("home.html")
-        else:
-            return "Wrong password"
-
-
-
-    return render_template("login.html")
+    return  render_template("login.html")
 
 
 @auth_bp.route("/signin", methods=["GET", "POST"])
@@ -39,21 +28,8 @@ def signin():
         password = request.form.get("password")
         birth_of_date = request.form.get("birthdate")
 
-        new_user=Users(
-            name = name,
-            user_name = username,
-            email=email,
-            phone_number = phone_number,
-            password = password,
-            birth_of_date = birth_of_date
-
-        )
-
-        db.session.add(new_user)
-        db.session.commit()
-        return render_template("login.html")
-
-
+        response = sign_user(name,username,email,phone_number,password,birth_of_date)
+        return response
 
     return render_template("signin.html")
 
