@@ -1,12 +1,8 @@
-from crypt import methods
-from http.client import responses
-
-from flask import request
 from flask import Blueprint, render_template,request,redirect,url_for
-from auth.auth_service import login_user, sign_user,  logout_user
+from services.auth_service import login_user, sign_user,  logout_user
 from routes.frontend_routes import get_current_user
 
-auth_bp = Blueprint("auth",__name__)
+auth_bp = Blueprint("services",__name__)
 
 @auth_bp.route("/login", methods=["GET", "POST"])
 def login():

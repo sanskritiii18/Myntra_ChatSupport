@@ -1,9 +1,7 @@
-from http.client import responses
-from pyexpat.errors import messages
 import string
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import render_template, redirect,url_for,request
-from auth.jwt_handler import create_token
+from flask import render_template, redirect,url_for
+from utils.jwt_handler import create_token
 from models.user import Users
 from database import db
 from sqlalchemy import or_
@@ -33,9 +31,9 @@ def login_user(phone_number ,password):
     return response
 
 def logout_user():
-    token = request.cookies.get("token")
+
     response = redirect(url_for("frontend.home"))
-    response.delete_cookie("token",token)
+    response.delete_cookie("token")
     return response
 
 def sign_user(name,username,email,phone_number ,password,birth_of_date):

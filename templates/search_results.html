@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/friends.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <a href="{{ url_for('friends.friends') }}">← Back to Friends</a>
+
+    <h2>Search Results</h2>
+
+    {% if result_search %}
+
+        {% for user in result_search %}
+
+            <div class="card">
+
+                <div>
+                    <strong>{{ user.user_name }}</strong><br>
+                    {{ user.email }}
+                </div>
+
+                <form action="/friends/request" method="POST">
+
+                    <input
+                        type="hidden"
+                        name="friend_id"
+                        value="{{ user.id }}"
+                    >
+
+                    <button type="submit">
+                        Send Request
+                    </button>
+
+                </form>
+
+            </div>
+
+        {% endfor %}
+
+    {% else %}
+
+        <p>No users found.</p>
+
+    {% endif %}
+
+</div>
+
+<script src="{{ url_for('static', filename='js/friends.js') }}"></script>
+
+</body>
+</html>

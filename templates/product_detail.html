@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ product.name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/moda.css') }}">
+</head>
+
+<body>
+
+<div class="product-detail-page">
+
+  <div class="product-left">
+    <img class="main-product-img"
+         src="{{ product.image_url }}"
+         alt="{{ product.name }}">
+  </div>
+
+  <div class="product-right">
+
+    <h2 class="product-brand">{{ product.brand }}</h2>
+    <h3 class="product-name">{{ product.name }}</h3>
+
+    <div class="rating-box">
+      4.1 ★ | 1.2k Ratings
+    </div>
+
+    <hr>
+
+    <div class="price-box">
+      <span class="price">Rs. {{ product.price }}</span>
+
+      {% if product.discount %}
+        <span class="discount">({{ product.discount }}% OFF)</span>
+      {% endif %}
+    </div>
+
+    <p class="tax-text">Inclusive of all taxes</p>
+
+    <div class="size-section">
+      <h4>SELECT SIZE</h4>
+
+      <div class="sizes">
+        <button>S</button>
+        <button>M</button>
+        <button>L</button>
+        <button>XL</button>
+      </div>
+    </div>
+
+    <div class="action-buttons">
+      <button class="bag-btn">ADD TO BAG</button>
+      <button class="wishlist-btn">WISHLIST</button>
+    </div>
+
+    <hr>
+
+    <div class="delivery-section">
+      <h4>DELIVERY OPTIONS</h4>
+      <input type="text" placeholder="Enter pincode">
+      <p>Please enter PIN code to check delivery time.</p>
+    </div>
+
+    <hr>
+
+    <div class="product-info">
+      <h4>PRODUCT DETAILS</h4>
+      <p>{{ product.description }}</p>
+
+      <h4>Specifications</h4>
+      <p><b>Brand:</b> {{ product.brand }}</p>
+      <p><b>Category:</b> {{ product.category }}</p>
+      <p><b>Stock:</b> {{ product.stock }}</p>
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>

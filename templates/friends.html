@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Friends</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/friends.css') }}">
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Friends</h2>
+
+    <!-- Search -->
+    <form action="{{ url_for('friends.search') }}" method="GET" class="search-bar">
+        <input
+            type="text"
+            name="query"
+            placeholder="Search by username or email..."
+            required
+        >
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Pending Requests -->
+    <div class="section">
+        <h3>Pending Requests</h3>
+
+        {% if pending_request %}
+            {% for request in pending_request %}
+                <div class="card">
+                    <span>{{ request.user.user_name }}</span>
+
+                    <form action="/friends/accept" method="POST">
+                        <input type="hidden" name="friendship_id" value="{{ request.id }}">
+                        <button>Accept</button>
+                    </form>
+
+                    <form action="/friends/decline" method="POST">
+                        <input type="hidden" name="friendship_id" value="{{ request.id }}">
+                        <button>Decline</button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No pending requests.</p>
+        {% endif %}
+    </div>
+
+    <!-- Friends -->
+    <div class="section">
+
+        <h3>Current Friends</h3>
+
+        {% if friends %}
+            {% for friend in friends %}
+                <div class="card">
+                    <span>{{ friend.user_name }}</span>
+                    <button>Chat</button>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No friends yet.</p>
+        {% endif %}
+
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/friends.js') }}"></script>
+
+</body>
+</html>
