@@ -1,4 +1,4 @@
-# 🛍️ Myntra Chat Support (Flask Backend Project)
+# 🛍️ Myntra Chat Support (Full stack project)(backened focused)
 
 ## 📌 Overview
 
