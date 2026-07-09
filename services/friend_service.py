@@ -1,7 +1,12 @@
+from flask import render_template
+from sqlalchemy.testing.exclusions import succeeds_if
+from sqlalchemy.testing.suite.test_reflection import users
+
 from models.friend import Friend
 from models.user import Users
 from routes.frontend_routes import get_current_user
-from sqlalchemy import or_
+from database import db
+from sqlalchemy import or_,and_
 
 
 def search_users(query):
@@ -23,8 +28,44 @@ def search_users(query):
 
 
 
-def send_friend_request(email,username):
-    pass
+def send_friend_request(friend_id):
+    current_user = get_current_user()
+    if current_user is None:
+        return "no current user"
+    if current_user.id == friend_id:
+        return "cannot_add_self"
+    check_user = Users.query.filter_by(id=friend_id).first()
+    if not check_user:
+        return "friend_not_found"
+    sender_id = current_user.id
+    receiver_id = check_user.id
+    user_id = min(sender_id,receiver_id)
+    friend_user_id = max(sender_id,receiver_id)
+
+    existing_friendship = Friend.query.filter(
+        and_(
+            Friend.user_id == user_id,
+            Friend.friend_user_id == friend_user_id
+        )
+    ).first()
+    if existing_friendship:
+        return "already_exists"
+
+
+    new_friendship = Friend(
+        user_id=user_id,
+        friend_user_id=friend_user_id,
+        request_by=current_user.id,
+        status="pending"
+    )
+
+    db.session.add(new_friendship)
+    db.session.commit()
+
+
+    return "success"
+
+
 
 def accept_friend_request():
     pass

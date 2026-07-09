@@ -1,7 +1,7 @@
 
 from flask import Blueprint , render_template,request,redirect,url_for
 
-from services.friend_service import get_friend_list, get_pending_requests, search_users
+from services.friend_service import get_friend_list, get_pending_requests, search_users, send_friend_request
 
 friends_bp = Blueprint("friends",__name__)
 
@@ -24,25 +24,27 @@ def search():
     return render_template("search_results.html",result_search = result_search)
 
 
-"""
+
 @friends_bp.route("/friends/request",methods=["POST"])
-def send_friend_request():
-    email = request.form.get('email')
-    #search button
-    friend = Users.query.filter_by(email=email)
-    if not friend:
-        return  render_template(
-            "friends.html",
-            error ="User doesnt exits")
-if friend.status == "Pending":
-        return error='request already sent'
-
-    friend.status = "Pending"
-   
-
-"""
-
-
+def send_friend_request_route():
+    friend_id = request.form.get("friend_id")
+    friend_id = int(friend_id)
+    result = send_friend_request(friend_id)
+    if result == "friend_not_found":
+        return render_template(
+            "search_results.html",
+            error="User doesn't exist."
+        )
+    if result == "already_exists":
+        return render_template(
+            "search_results.html",
+            error="Friend request already exists."
+        )
+    if result == "cannot_add_self":
+        return render_template(
+            "search_results.html"
+        )
+    return redirect(url_for("friends.friends"))
 
 
 
