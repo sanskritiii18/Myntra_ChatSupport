@@ -28,7 +28,7 @@
         {% if pending_request %}
             {% for request in pending_request %}
                 <div class="card">
-                    <span>{{ request.user.user_name }}</span>
+                    <span>{{ request.request_sender.user_name}}</span>
 
                     <form action="/friends/accept" method="POST">
                         <input type="hidden" name="friendship_id" value="{{ request.id }}">

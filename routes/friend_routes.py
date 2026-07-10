@@ -1,12 +1,20 @@
+from crypt import methods
+from idlelib.sidebar import get_widget_padding
 
 from flask import Blueprint , render_template,request,redirect,url_for
+from sqlalchemy.sql.functions import current_user
 
-from services.friend_service import get_friend_list, get_pending_requests, search_users, send_friend_request
+from routes.frontend_routes import get_current_user
+from services.friend_service import get_friend_list, get_pending_requests, search_users, send_friend_request, \
+    accept_friend_request,decline_friend_request
 
 friends_bp = Blueprint("friends",__name__)
 
 @friends_bp.route("/friends",methods=["GET"])
 def friends():
+    current_user = get_current_user()
+    if not current_user:
+        return "Login first"
     friends = get_friend_list()
     pending_request = get_pending_requests()
 
@@ -48,7 +56,23 @@ def send_friend_request_route():
 
 
 
+@friends_bp.route("/friends/accept",methods=["POST"])
+def accept_friend_request_route():
+    request_id = int(request.form.get("friendship_id"))
+    result = accept_friend_request(request_id)
+    if result:
+        return redirect(url_for("friends.friends"))
+    else:
+        return "Unable to accept request"
 
 
+@friends_bp.route("/friends/decline",methods=["POST"])
+def decline_friend_request_route():
+    request_id = int(request.form.get("friendship_id"))
+    result = decline_friend_request(request_id)
+    if result:
+        return redirect(url_for("friends.friends"))
+    else:
+        return "Unable to decline request"
 
 

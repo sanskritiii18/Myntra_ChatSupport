@@ -6,7 +6,7 @@ from models.friend import Friend
 from models.user import Users
 from routes.frontend_routes import get_current_user
 from database import db
-from sqlalchemy import or_,and_
+from sqlalchemy import or_, and_, false
 
 
 def search_users(query):
@@ -67,11 +67,28 @@ def send_friend_request(friend_id):
 
 
 
-def accept_friend_request():
-    pass
+def accept_friend_request(request_id):
+    find_friendship = Friend.query.filter_by(id=request_id).first()
+    if find_friendship and find_friendship.status == "pending":
+        find_friendship.status = "accepted"
+        db.session.commit()
+        return True
+    else:
+        return "friendship_not_found"
 
-def decline_friend_request():
-    pass
+
+
+def decline_friend_request(request_id):
+    find_friendship = Friend.query.filter_by(id=request_id).first()
+    if find_friendship and find_friendship.status == "pending":
+        db.session.delete(find_friendship)
+        db.session.commit()
+        return True
+    else:
+        return "friendship_not_found"
+
+
+
 
 def get_friend_list():
     current_user = get_current_user()
@@ -87,6 +104,24 @@ def get_friend_list():
 
 
 
-def get_pending_requests(): pass
+def get_pending_requests():
+    current_user = get_current_user()
+    result = Friend.query.filter(
+        or_(
+            Friend.user_id == current_user.id,
+            Friend.friend_user_id == current_user.id
+        )
+    ).all()
+    pending_request=[]
+    for friendship in result:
+        if friendship.request_by != current_user.id and friendship.status == "pending":
+            pending_request.append(friendship)
+
+    return pending_request
+
+
+
+
+
 
 
