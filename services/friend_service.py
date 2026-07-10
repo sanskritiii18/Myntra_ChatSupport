@@ -1,12 +1,8 @@
-from flask import render_template
-from sqlalchemy.testing.exclusions import succeeds_if
-from sqlalchemy.testing.suite.test_reflection import users
-
 from models.friend import Friend
 from models.user import Users
 from routes.frontend_routes import get_current_user
 from database import db
-from sqlalchemy import or_, and_, false
+from sqlalchemy import or_, and_
 
 
 def search_users(query):
@@ -93,14 +89,16 @@ def decline_friend_request(request_id):
 def get_friend_list():
     current_user = get_current_user()
     friend = Friend.query.all()
+    if not friend:
+        return "no current friends"
     return_friends_list = []
     for fr in friend:
-        if fr not in friend:
-            return #no friends yet
-        if fr.user_id == current_user.id:
-            return_friends_list.append(fr.friend_user_id)
-        elif fr.friend_user_id == current_user.id:
-            return_friends_list.append(fr.user_id)
+        if fr.status == "accepted":
+            if fr.user_id == current_user.id:
+                return_friends_list.append(fr.friend_user)
+            if fr.friend_user_id == current_user.id:
+                return_friends_list.append(fr.user)
+    return return_friends_list
 
 
 

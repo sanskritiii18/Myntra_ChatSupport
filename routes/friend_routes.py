@@ -1,9 +1,4 @@
-from crypt import methods
-from idlelib.sidebar import get_widget_padding
-
 from flask import Blueprint , render_template,request,redirect,url_for
-from sqlalchemy.sql.functions import current_user
-
 from routes.frontend_routes import get_current_user
 from services.friend_service import get_friend_list, get_pending_requests, search_users, send_friend_request, \
     accept_friend_request,decline_friend_request
